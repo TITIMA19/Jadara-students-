@@ -1,22 +1,18 @@
 const express = require('express')
-const mongoose = require('mongoose')
+const connectDB = require('./config/db');
 const app = express()
-const Users = require("./models/users");
+const userRoutes = require('./routes/users');
 
 const port = 3000
 
-mongoose
-	.connect(
-"mongodb+srv://essanhajimaryam10:7jYvmRt9Pnw2Jc9n@cluster0.ie7haqb.mongodb.net/"	)
-	.then(() => {
-		console.log("connected successfully");
-	})
-	.catch((error) => {
-		console.log("error with connecting with the DB ", error);
-	});
-app.get('/', (req, res) => {
-    res.send('Hello World!')
-});
+// mongoose
+
+connectDB()
+
+
+// Middleware
+app.use(express.json());
+app.use('/users', userRoutes);
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
