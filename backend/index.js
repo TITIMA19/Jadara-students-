@@ -3,6 +3,7 @@ const connectDB = require('./config/db');
 const app = express()
 const userRoutes = require('./routes/users');
 const coursesRoutes = require('./routes/courses');
+const  eventRoutes = require('./routes/events');
 
 const port = 3000
 
@@ -15,6 +16,7 @@ connectDB()
 app.use(express.json());
 app.use('/users', userRoutes);
 app.use('/courses', coursesRoutes);
+app.use('/events', eventRoutes);
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
