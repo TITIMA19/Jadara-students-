@@ -1,5 +1,7 @@
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
+import { useState } from "react";
+
 import {
   Card,
   CardContent,
@@ -9,13 +11,37 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import Layout from "@/components/Layout";
+// import Layout from "@/components/Layout";
 
 export function Register({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {
-  return (
-    
+   const [form, setForm] = useState({ username: "", email: "", password: "" });
+const [registered, setRegistered] = useState(false);
+
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault(); // ✅ prevent the page from reloading
+
+  const res = await fetch("http://localhost:3000/api/register", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(form),
+  });
+
+  if (res.ok) {
+    const data = await res.json();
+    localStorage.setItem("token", data.token);
+    setRegistered(true);
+  } else {
+    alert("Registration failed");
+  }
+};
+
+  return registered ? (
+    <Layout children={undefined}/> 
+  ) : (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader>
@@ -25,14 +51,25 @@ export function Register({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="flex flex-col gap-6">
+               <div className="grid gap-2">
+                <Label htmlFor="name">Name</Label>
+                <Input
+                  id="name"
+                  type="name"
+                  placeholder="m@example.com"
+                   onChange={(e) => setForm({ ...form, username: e.target.value })}
+                  required
+                />
+              </div>
               <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
                 <Input
                   id="email"
                   type="email"
                   placeholder="m@example.com"
+                   onChange={(e) => setForm({ ...form, email: e.target.value })}
                   required
                 />
               </div>
@@ -41,9 +78,9 @@ export function Register({
                   <Label htmlFor="password">Password</Label>
                  
                 </div>
-                <Input id="password" type="password" required />
+                <Input id="password" type="password" onChange={(e) => setForm({ ...form, password: e.target.value })} required />
               </div>
-              <Button type="submit" className="w-full">
+              <Button type="submit"  className="w-full">
                 Sign up
               </Button>
               <Button variant="outline" className="w-full">
@@ -60,5 +97,6 @@ export function Register({
         </CardContent>
       </Card>
     </div>
+         
   )
 }
