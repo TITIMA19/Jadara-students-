@@ -4,16 +4,38 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import login from '../assets/login.png'
-
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+
+  const [form, setForm] = useState({ email: "", password: "" });
+  const navigate = useNavigate();
+
+  const handleLogin = async  (e: React.FormEvent) => {
+    e.preventDefault(); // ✅ prevent reload
+    const res = await fetch("http://localhost:3000/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form),
+    });
+
+    const data = await res.json();
+    if (data.token) {
+      localStorage.setItem("token", data.token);
+      navigate("/dashboard");
+    } else {
+      alert("Login failed");
+    }
+  };
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card className="overflow-hidden p-0">
         <CardContent className="grid p-0 md:grid-cols-2">
-          <form className="p-6 md:p-8">
+          <form onSubmit={handleLogin} className="p-6 md:p-8">
             <div className="flex flex-col gap-6">
               <div className="flex flex-col items-center text-center">
                 <h1 className="text-2xl font-bold">Welcome back</h1>
@@ -26,7 +48,9 @@ export function LoginForm({
                 <Input
                   id="email"
                   type="email"
+                  value={form.email}
                   placeholder="m@example.com"
+                  onChange={(e) => setForm({ ...form, email: e.target.value })}
                   required
                 />
               </div>
@@ -40,7 +64,9 @@ export function LoginForm({
                     Forgot your password?
                   </a>
                 </div>
-                <Input id="password" type="password" required />
+                <Input id="password" type="password" value={form.password}
+                 onChange={(e) => setForm({ ...form, password: e.target.value })}
+                required />
               </div>
               <Button type="submit" className="w-full">
                 Login

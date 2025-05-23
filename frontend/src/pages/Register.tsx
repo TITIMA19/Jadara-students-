@@ -57,7 +57,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                 <Label htmlFor="name">Name</Label>
                 <Input
                   id="name"
-                  type="name"
+                  type="text"
                   placeholder="m@example.com"
                    onChange={(e) => setForm({ ...form, username: e.target.value })}
                   required

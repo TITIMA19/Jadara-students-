@@ -6,6 +6,7 @@ const coursesRoutes = require('./routes/courses');
 const  eventRoutes = require('./routes/events');
 const  authRoutes = require("./routes/auth");
 const cors = require("cors");
+const dotenv = require("dotenv");
 const port = 3000
 
 // mongoose
@@ -13,6 +14,7 @@ const port = 3000
 connectDB()
 // ✅ Allow all origins (for development)
 app.use(cors());
+dotenv.config();
 
 // Middleware
 app.use(express.json());

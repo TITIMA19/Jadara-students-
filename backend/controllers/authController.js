@@ -26,7 +26,7 @@ const register = async (req, res) => {
     });
 
     await user.save();
-
+console.log("Hashed password in DB:", user.password);
     const token = jwt.sign(
       { userId: user._id },
       process.env.JWT_SECRET || "fallback_secret",
@@ -36,7 +36,12 @@ const register = async (req, res) => {
     res.status(201).json({
       message: "User created successfully",
       token,
-      user: user.toJSON(),
+       user: {
+        id: user._id,
+        username: user.username,
+        email: user.email
+        // ⚠️ Do NOT return password
+      }
     });
   } catch (error) {
     res.status(400).json({
@@ -46,4 +51,33 @@ const register = async (req, res) => {
   }
 };
 
-module.exports = { register };
+// Login controller
+const login = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+    if (!user) return res.status(401).json({ message: "Invalid credentials" });
+
+    console.log("Plain password:", password);
+    console.log("Hashed password in DB:", user.password);
+
+    const match = await bcrypt.compare(password, user.password);
+    if (!match) return res.status(401).json({ message: "Invalid password" });
+const JWT_SECRET = process.env.JWT_SECRET;
+
+if (!JWT_SECRET) {
+  throw new Error("JWT_SECRET is not defined");
+}
+
+const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: "1h" });
+
+    // const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
+    res.json({ token });
+  } catch (err) {
+    res.status(500).json({ message: "Login failed", error: err.message });
+  }
+};
+
+
+module.exports = { register, login };
