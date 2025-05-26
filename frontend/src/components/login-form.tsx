@@ -25,6 +25,9 @@ export function LoginForm({
     const data = await res.json();
     if (data.token) {
       localStorage.setItem("token", data.token);
+        localStorage.setItem("userRole", data.role); // 👈 Save role to localStorage
+        localStorage.setItem("userEmail", form.email); // <== Save email too
+
       navigate("/dashboard");
     } else {
       alert("Login failed");

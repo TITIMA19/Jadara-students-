@@ -1,4 +1,5 @@
  import { Book, Home,Calendar, Search, Settings, User } from "lucide-react"
+//  import { useEffect, useState } from "react";
 import {
   Sidebar,
   SidebarContent,
@@ -43,11 +44,15 @@ const items = [
 ]
  
 export function AppSidebar() {
+  // const role = localStorage.getItem("userRole");
+
   return (
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>JADARA</SidebarGroupLabel>
+          <SidebarGroupLabel>JADARA
+              {/* Welcome {role === "admin" ? "Admin" : "User"} */}
+          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (

@@ -40,7 +40,6 @@ console.log("Hashed password in DB:", user.password);
         id: user._id,
         username: user.username,
         email: user.email
-        // ⚠️ Do NOT return password
       }
     });
   } catch (error) {
@@ -70,10 +69,10 @@ if (!JWT_SECRET) {
   throw new Error("JWT_SECRET is not defined");
 }
 
-const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: "1h" });
+const token = jwt.sign({ userId: user._id ,role: user.role },
+   JWT_SECRET, { expiresIn: "1h" });
 
-    // const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
-    res.json({ token });
+    res.json({ token ,role: user.role});
   } catch (err) {
     res.status(500).json({ message: "Login failed", error: err.message });
   }
