@@ -18,7 +18,7 @@ const items = [
   },
   {
     title: "Courses",
-    url: "#",
+    url: "/showCourses",
     icon: Book,
   },
   {
