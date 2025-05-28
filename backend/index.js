@@ -4,6 +4,8 @@ const app = express()
 const userRoutes = require('./routes/users');
 const coursesRoutes = require('./routes/courses');
 const  eventRoutes = require('./routes/events');
+const cors = require('cors');
+
 
 const port = 3000
 
@@ -13,6 +15,11 @@ connectDB()
 
 
 // Middleware
+app.use(cors({
+    origin: 'http://localhost:5173', 
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type']
+}));
 app.use(express.json());
 app.use('/users', userRoutes);
 app.use('/courses', coursesRoutes);
@@ -21,3 +28,4 @@ app.use('/events', eventRoutes);
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 }) 
+

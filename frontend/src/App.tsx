@@ -3,16 +3,20 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { LoginForm } from "./components/login-form";
 import { Register } from "./pages/Register";
 import Layout from "@/components/Layout";
+import Tables from "./components/tableform";
+
 function App() {
 
   return (
     <>
        <BrowserRouter>
-      <Routes>
+       <Layout>
+        <Routes>
         <Route path="/" element={<LoginForm/>} />
         <Route path="/register" element={<Register/>} />
-         <Route path="/dashboard" element={<Layout children={undefined}/>} />
+         <Route path="/events" element={<Tables />} />
       </Routes>
+         </Layout>
     </BrowserRouter>
     </>
  
