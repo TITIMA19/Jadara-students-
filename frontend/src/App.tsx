@@ -5,6 +5,7 @@ import { Register } from "./pages/Register";
 import Layout from "@/components/Layout";
 import ShowCourses from "./pages/courses/ShowCourses";
 import AddCourse from "./pages/courses/AddCourse";
+import SchoolStatistics from "./pages/SchoolStatistics";
 function App() {
 
   return (
@@ -17,6 +18,9 @@ function App() {
     <Route path="/*" element={
       <Layout>
         <Routes>
+          SchoolStatistics
+          <Route path="/home" element={<SchoolStatistics/>} />
+
           <Route path="/showCourses" element={<ShowCourses/>} />
           <Route path="/addCourse" element={<AddCourse/>} />
 
