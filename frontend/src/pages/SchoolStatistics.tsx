@@ -1,35 +1,80 @@
 import { 
   Users, 
-  GraduationCap, 
+  CalendarFold  , 
   BookOpen, 
-  TrendingUp,
+ 
  
 } from 'lucide-react';
-
+import  { useState, useEffect } from 'react';
 export default function SchoolStatistics() {
+  const [totalCourses, setTotalCourses] = useState(0);
+  const [totalUsers, setTotalUsers] = useState(0);
+  const [totalEvents, setTotalEvents] = useState(0);
+
+ useEffect(() => {
+        fetchCourseStatistics();
+    }, []);
+
+    const fetchCourseStatistics = async () => {
+        try {
+            const response = await fetch('http://localhost:3000/courses');
+            const data = await response.json();
+             setTotalCourses(data.statistics.total);
+           
+        } catch (err) {
+           console.error('Failed to fetch statistics');
+        }
+    };
+
+     useEffect(() => {
+        fetchUserStatistics();
+    }, []);
+
+    const fetchUserStatistics = async () => {
+        try {
+            const response = await fetch('http://localhost:3000/users');
+            const data = await response.json();
+             setTotalUsers(data.statistics.total);
+           
+        } catch (err) {
+           console.error('Failed to fetch statistics');
+        }
+    };
+
+    useEffect(() => {
+        fetchEventStatistics();
+    }, []);
+
+    const fetchEventStatistics = async () => {
+        try {
+            const response = await fetch('http://localhost:3000/events');
+            const data = await response.json();
+             setTotalEvents(data.results);
+           
+        } catch (err) {
+           console.error('Failed to fetch statistics');
+        }
+    };
   const mainStats = [
     {
       title: "Total Students",
-      value: "1,245",
-      change: "+12%",
+      value: totalUsers.toString(),
       changeType: "increase",
       icon: Users,
       color: "bg-blue-500",
-      description: "Active enrolled students"
+      description: " Enrolled students"
     },
     {
       title: "Total Events",
-      value: "89",
-      change: "+3%",
+      value: totalEvents.toString(),
       changeType: "increase",
-      icon: GraduationCap,
+      icon: CalendarFold  ,
       color: "bg-green-500",
-      description: "Full-time faculty"
+      description: "Active Events "
     },
     {
       title: "Total Courses",
-      value: "156",
-      change: "+8%",
+      value:totalCourses.toString(),
       changeType: "increase",
       icon: BookOpen,
       color: "bg-purple-500",
@@ -80,7 +125,7 @@ export default function SchoolStatistics() {
                     <stat.icon className="w-7 h-7 text-white" />
                   </div>
                   <div className={`px-3 py-1 rounded-full text-sm font-semibold ${getChangeColor(stat.changeType)}`}>
-                    {getChangeSymbol(stat.changeType)} {stat.change}
+                    {getChangeSymbol(stat.changeType)} 
                   </div>
                 </div>
                 <h3 className="text-3xl font-bold text-gray-800 mb-2">{stat.value}</h3>
