@@ -23,13 +23,13 @@ const items = [
   },
   {
     title: "Event",
-    url: "#",
+    url: "/showEvent",
     icon: Calendar,
   },
   
   {
     title: "Users",
-    url: "#",
+    url: "showUsers",
     icon: User,
   },
   {

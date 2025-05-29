@@ -7,11 +7,11 @@ exports.createUser = async (req, res) => {
   const userEmail = req.body.email;
   const userPassword = req.body.password;
   const userRole = req.body.role;
-  
+  const userName = req.body.username; 
   newUser.email = userEmail;
   newUser.password = userPassword;
   newUser.role = userRole;
-  
+   newUser.username = userName;
   try {
     await newUser.save();
     res.json(newUser);
@@ -26,7 +26,12 @@ exports.getAllUsers = async (req, res) => {
   try {
     const users = await Users.find({});
     console.log("the users are", users);
-    res.json(users);
+    res.json({
+      users:users,
+      statistics:{
+        total:users.length
+      }
+    });
   } catch (error) {
     console.log("Error fetching users:", error.message);
     res.status(500).json({ error: "Failed to fetch users" });

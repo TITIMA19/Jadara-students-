@@ -5,6 +5,8 @@ import { Register } from "./pages/Register";
 import Layout from "@/components/Layout";
 import ShowCourses from "./pages/courses/ShowCourses";
 import AddCourse from "./pages/courses/AddCourse";
+import ShowUsers from"./pages/users/ShowUsers";
+import ShowEvent from "./pages/event/ShowEvent"
 function App() {
 
   return (
@@ -19,6 +21,9 @@ function App() {
         <Routes>
           <Route path="/showCourses" element={<ShowCourses/>} />
           <Route path="/addCourse" element={<AddCourse/>} />
+          <Route path="/showEvent" element={ <ShowEvent /> } />
+           <Route path="/showUsers" element={ <ShowUsers/>} />
+          
 
 
         </Routes>
