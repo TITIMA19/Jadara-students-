@@ -8,13 +8,16 @@ import AddCourse from "./pages/courses/AddCourse";
 import ShowUsers from"./pages/users/ShowUsers";
 import ShowEvent from "./pages/event/ShowEvent"
 import SchoolStatistics from "./pages/SchoolStatistics";
+import Home from "./pages/home/Home";
 function App() {
 
   return (
     <>
     <BrowserRouter>
   <Routes>
-    <Route path="/" element={<LoginForm/>} />
+    <Route path="/" element={<Home/>} />
+
+    <Route path="/login" element={<LoginForm/>} />
     <Route path="/register" element={<Register/>} />
     
     <Route path="/*" element={
