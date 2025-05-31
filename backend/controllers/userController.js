@@ -27,19 +27,12 @@ exports.getAllUsers = async (req, res) => {
     const users = await Users.find({});
     console.log("the users are", users);
     res.json({
-<<<<<<< HEAD
       users:users,
       statistics:{
         total:users.length
       }
     });
-=======
-            users: users,
-            statistics: {
-                total: users.length
-            }
-        });
->>>>>>> c567ba2dfafa2a49aec193c6eb7d8ab4871450df
+       
   } catch (error) {
     console.log("Error fetching users:", error.message);
     res.status(500).json({ error: "Failed to fetch users" });

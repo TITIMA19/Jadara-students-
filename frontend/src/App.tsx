@@ -5,12 +5,9 @@ import { Register } from "./pages/Register";
 import Layout from "@/components/Layout";
 import ShowCourses from "./pages/courses/ShowCourses";
 import AddCourse from "./pages/courses/AddCourse";
-<<<<<<< HEAD
 import ShowUsers from"./pages/users/ShowUsers";
 import ShowEvent from "./pages/event/ShowEvent"
-=======
 import SchoolStatistics from "./pages/SchoolStatistics";
->>>>>>> c567ba2dfafa2a49aec193c6eb7d8ab4871450df
 function App() {
 
   return (
