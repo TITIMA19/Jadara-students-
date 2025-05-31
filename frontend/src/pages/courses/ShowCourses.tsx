@@ -32,7 +32,7 @@ export default function ShowCourses() {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
-      setCourses(data);
+      setCourses(data.courses);
       setError(null);
     } catch (err) {
       console.error("Failed to load courses:", err);

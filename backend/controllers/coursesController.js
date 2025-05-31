@@ -19,7 +19,12 @@ exports.getAllCourses = async(req,res)=>{
 try {
     const courses = await Courses.find({});
     console.log("the courses are", courses );
-    res.json(courses);
+      res.json({
+            courses: courses,
+            statistics: {
+                total: courses.length
+            }
+        });
 } catch (error){
     console.log("Error fetching courses:", error.message);
     res.status(500).json({ error: "Failed to fetch courses" });
