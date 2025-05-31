@@ -110,7 +110,7 @@ export default function ShowUsers() {
             <TableHead>ID</TableHead>
             <TableHead>Username</TableHead>
             <TableHead>Email</TableHead>
-            <TableHead>Role</TableHead>
+            <TableHead>Group</TableHead>
             <TableHead className="text-right">Action</TableHead>
           </TableRow>
         </TableHeader>
@@ -120,7 +120,7 @@ export default function ShowUsers() {
               <TableCell>{index+1}</TableCell>
               <TableCell>{user.username}</TableCell>
               <TableCell>{user.email}</TableCell>
-              <TableCell>{user.role}</TableCell>
+              <TableCell>group x</TableCell>
               <TableCell className="text-right">
                 <button onClick={() => handleDelete(user._id)}>
                   <Delete />

@@ -28,7 +28,7 @@ export function LoginForm({
         localStorage.setItem("userRole", data.role); // 👈 Save role to localStorage
         localStorage.setItem("userEmail", form.email); // <== Save email too
 
-      navigate("/dashboard");
+      navigate("/home");
     } else {
       alert("Login failed");
     }

@@ -50,7 +50,7 @@ export function AppSidebar() {
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>JADARA
+          <SidebarGroupLabel>SMTA ADMIN
               {/* Welcome {role === "admin" ? "Admin" : "User"} */}
           </SidebarGroupLabel>
           <SidebarGroupContent>

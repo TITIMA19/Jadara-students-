@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Layout from "@/components/Layout";
 // import Layout from "@/components/Layout";
+import { useNavigate } from "react-router-dom";
 
 export function Register({
   className,
@@ -20,6 +21,7 @@ export function Register({
 }: React.ComponentPropsWithoutRef<"div">) {
    const [form, setForm] = useState({ username: "", email: "", password: "" });
 const [registered, setRegistered] = useState(false);
+  const navigate = useNavigate();
 
 const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault(); // ✅ prevent the page from reloading
@@ -34,6 +36,7 @@ const handleSubmit = async (e: React.FormEvent) => {
     const data = await res.json();
     localStorage.setItem("token", data.token);
     setRegistered(true);
+     navigate("/home");
   } else {
     alert("Registration failed");
   }
@@ -89,7 +92,7 @@ const handleSubmit = async (e: React.FormEvent) => {
             </div>
             <div className="mt-4 text-center text-sm">
             Already have an account?{" "}
-              <a href="/" className="underline underline-offset-4">
+              <a href="/login" className="underline underline-offset-4">
                Login
               </a>
             </div>
